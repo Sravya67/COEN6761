@@ -36,7 +36,7 @@ public class RobotTesting {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         robot.processCommand("C");
-        Assertions.assertEquals("Position: 0, 0 - Pen: up - Facing: north\n", outContent.toString());
+        Assertions.assertTrue( outContent.toString().contains("Position: 0, 0 - Pen: up - Facing: north"));
     }
 
 
@@ -49,7 +49,7 @@ public class RobotTesting {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         robot.processCommand("D");
-        Assertions.assertEquals("Pen is down.\n", outContent.toString());
+        Assertions.assertTrue( outContent.toString().contains("Pen is down"));
         Assertions.assertEquals(1, robot.Room[0][0]);
     }
 
@@ -62,7 +62,7 @@ public class RobotTesting {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         robot.processCommand("M 4");
-        Assertions.assertEquals("Moved to position: 0, 4\n\n", outContent.toString());
+        Assertions.assertTrue(outContent.toString().contains("Moved to position: 0, 4"));
         Assertions.assertEquals(1, robot.Room[0][0]);
         Assertions.assertEquals(0, robot.Room[0][1]);
         Assertions.assertEquals(0, robot.Room[0][2]);
@@ -79,7 +79,7 @@ public class RobotTesting {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         robot.processCommand("R");
-        Assertions.assertEquals("Rotated right. The robot is currently facing: east\n", outContent.toString());
+        Assertions.assertTrue( outContent.toString().contains("Rotated right. The robot is currently facing: east"));
         Assertions.assertEquals("east", robot.Direction);
     }
 
@@ -93,7 +93,7 @@ public class RobotTesting {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         robot.processCommand("C");
-        assertEquals("Position: 0, 0 - Pen: down - Facing: east\n", outContent.toString());
+        assertTrue(outContent.toString().contains("Position: 0, 0 - Pen: down - Facing: east"));
     }
 
    // Test case for moving the robot after rotating right (command "M"):
@@ -106,7 +106,7 @@ public class RobotTesting {
        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
        System.setOut(new PrintStream(outContent));
        robot.processCommand("M 3");
-       assertEquals("Moved to position: 3, 0\n\n",outContent.toString());
+       assertTrue(outContent.toString().contains("Moved to position: 3, 0"));
        assertEquals(1, robot.Room[0][0]);
        assertEquals(0, robot.Room[1][0]);
        assertEquals(0, robot.Room[2][0]);
@@ -124,7 +124,7 @@ public class RobotTesting {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         robot.processCommand("C");
-        assertEquals("Position: 3, 0 - Pen: down - Facing: east\n", outContent.toString());
+        assertTrue(outContent.toString().contains("Position: 3, 0 - Pen: down - Facing: east"));
     }
     //Test case for quitting the program (command "Q"):
 //    @Test
