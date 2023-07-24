@@ -22,10 +22,7 @@ int x_Coordinate, y_Coordinate;
 public static void main(String[] args) {
     Robot robo = new Robot();
     System.out.println("Welcome to the Robot Simulator");
-    System.out.println("------------------------------------------");
     System.out.println("Initial Setup: Robot is at position (0, 0), facing North, with the pen up");
-    System.out.println("------------------------------------------");
-    System.out.println("Please enter a command to proceed");
     robo.executeCommands();
    }
 
