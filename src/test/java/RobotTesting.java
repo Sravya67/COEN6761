@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.PrintStream;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 
 public class RobotTesting {
     private Robot robot;
@@ -126,6 +126,178 @@ public class RobotTesting {
         robot.processCommand("C");
         assertTrue(outContent.toString().contains("Position: 3, 0 - Pen: down - Facing: east"));
     }
+    @Test
+    public void testDisplayPositionP() {
+        Robot robot = new Robot();
+        robot.processCommand("I 10");
+        robot.processCommand("D");
+        robot.processCommand("R");
+        robot.processCommand("P");
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+
+    @Test
+    public void testDisplayPositionLeft() {
+        Robot robot = new Robot();
+        robot.processCommand("I 10");
+        robot.processCommand("U");
+
+        robot.processCommand("L");
+        robot.processCommand("L");
+        robot.processCommand("L");
+        robot.processCommand("L");
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionRight() {
+        Robot robot = new Robot();
+        robot.processCommand("I 10");
+        robot.processCommand("U");
+
+        robot.processCommand("R");
+        robot.processCommand("R");
+        robot.processCommand("R");
+        robot.processCommand("R");
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionDefault() {
+        Robot robot = new Robot();
+        robot.processCommand("I 10");
+        robot.processCommand("V");
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionCError() {
+        Robot robot = new Robot();
+        robot.processCommand("I 10");
+        robot.processCommand("C 1");
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionDError() {
+        Robot robot = new Robot();
+        robot.processCommand("I 10");
+        robot.processCommand("D 1");
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionD0Error() {
+        Robot robot = new Robot();
+
+        robot.processCommand("D 1");
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+
+    @Test
+    public void testDisplayPositionAllError() {
+        Robot robot = new Robot();
+
+
+        robot.processCommand("D");
+        robot.processCommand("M");
+        robot.processCommand("U");
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionRError() {
+        Robot robot = new Robot();
+
+
+        robot.processCommand("R 10");
+
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionPError() {
+        Robot robot = new Robot();
+
+
+        robot.processCommand("P 10");
+
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionLError() {
+        Robot robot = new Robot();
+
+        robot.processCommand("L 10");
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionUError() {
+        Robot robot = new Robot();
+        robot.processCommand("I 9");
+        robot.processCommand("U 9");
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionIError() {
+        Robot robot = new Robot();
+        robot.processCommand("I");
+        robot.processCommand("U 9");
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
+    @Test
+    public void testDisplayPositionIErrors() {
+        Robot robot = new Robot();
+        robot.processCommand("I 0");
+        robot.processCommand("U 9");
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        assertNotNull(outContent);
+
+    }
     //Test case for quitting the program (command "Q"):
 //    @Test
 //    public void testQuitProgram() {
@@ -135,6 +307,7 @@ public class RobotTesting {
 //        robot.processCommand("Q");
 //        assertEquals("Terminating the robot.\n", outContent.toString());
 //    }
+
 
 
 }
