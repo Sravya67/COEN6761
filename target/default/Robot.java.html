@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Robot.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RobotTesting Coverage Results</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Robot.java</span></div><h1>Robot.java</h1><pre class="source lang-java linenums">
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
+<span class="fc" id="L7">public class Robot {</span>
+<span class="fc" id="L8">List&lt;int[]&gt; way = new ArrayList&lt;&gt;();</span>
+int x_Coordinate, y_Coordinate;
+   boolean Pendown;
+   int[][] Room;
+   int Room_size;
+   
+   
+<span class="fc" id="L15">   final String NORTH = &quot;north&quot;, EAST = &quot;east&quot;, SOUTH = &quot;south&quot;,WEST = &quot;west&quot; ;</span>
+<span class="fc" id="L16">   String Direction = NORTH;</span>
+
+   
+<span class="fc" id="L19">   Scanner Temp = new Scanner(System.in);</span>
+
+
+public static void main(String[] args) {
+<span class="nc" id="L23">    Robot robo = new Robot();</span>
+<span class="nc" id="L24">    System.out.println(&quot;Welcome to the Robot Simulator&quot;);</span>
+<span class="nc" id="L25">    System.out.println(&quot;Initial Setup: Robot is at position (0, 0), facing North, with the pen up&quot;);</span>
+<span class="nc" id="L26">    robo.executeCommands();</span>
+<span class="nc" id="L27">   }</span>
+
+   public void executeCommands() {
+       while (true) {
+<span class="nc" id="L31">           System.out.print(&quot;Enter Command&gt;: &quot;);</span>
+<span class="nc" id="L32">           String userInput = Temp.nextLine();</span>
+<span class="nc" id="L33">           processCommand(userInput);</span>
+<span class="nc" id="L34">       }</span>
+   }
+
+    public void processCommand(String command) {
+<span class="fc" id="L38">        String[] values = command.split(&quot; &quot;);</span>
+<span class="fc" id="L39">        String action = values[0].toUpperCase();</span>
+<span class="fc" id="L40">        int positions = 0;</span>
+
+<span class="pc bpc" id="L42" title="1 of 10 branches missed.">        switch (action) {</span>
+            case &quot;I&quot;:
+<span class="fc bfc" id="L44" title="All 2 branches covered.">                if (values.length &lt; 2) {</span>
+<span class="fc" id="L45">                    System.out.println(&quot;Error: Two values are required to process the 'I' command.&quot;);</span>
+<span class="fc" id="L46">                    break;</span>
+                }
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">                if (!(values[1].matches(&quot;\\d+&quot;))) {</span>
+<span class="nc" id="L49">                    System.out.println(&quot;Error: Only integer values are accepted for the 'I' command.&quot;);</span>
+<span class="nc" id="L50">                    break;</span>
+                }
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                if (Integer.parseInt(values[1]) &lt;= 1) {</span>
+<span class="fc" id="L53">                    System.out.println(&quot;Error: The value for 'I' command should be greater than 1.&quot;);</span>
+<span class="fc" id="L54">                    break;</span>
+                }
+<span class="fc" id="L56">                Room_size = Integer.parseInt(values[1]);</span>
+<span class="fc" id="L57">                Room = new int[Room_size][Room_size];</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">                for (int i = 0; i &lt; Room_size; i++) {</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">                    for (int j = 0; j &lt; Room_size; j++) {</span>
+<span class="fc" id="L60">                        Room[i][j] = 0;</span>
+                    }
+                }
+<span class="fc" id="L63">                x_Coordinate = 0;</span>
+<span class="fc" id="L64">                y_Coordinate = 0;</span>
+<span class="fc" id="L65">                Pendown = false;</span>
+<span class="fc" id="L66">                Direction = NORTH;</span>
+<span class="fc" id="L67">                System.out.println(&quot;Room is set to &quot; + Room_size + &quot;x&quot; + Room_size + &quot;.&quot;);</span>
+<span class="fc" id="L68">                break;</span>
+
+            case &quot;C&quot;:
+<span class="fc bfc" id="L71" title="All 2 branches covered.">                if (values.length &gt; 1) {</span>
+<span class="fc" id="L72">                    System.out.println(&quot;Error: The 'C' command does not accept any additional values.&quot;);</span>
+<span class="fc" id="L73">                    break;</span>
+                }
+<span class="fc bfc" id="L75" title="All 2 branches covered.">                System.out.println(&quot;Position: &quot; + x_Coordinate + &quot;, &quot; + y_Coordinate + &quot; - Pen: &quot; + (Pendown ? &quot;down&quot; : &quot;up&quot;) + &quot; - Facing: &quot; + Direction);</span>
+<span class="fc" id="L76">                break;</span>
+
+            case &quot;D&quot;:
+<span class="fc bfc" id="L79" title="All 2 branches covered.">                if (Room_size == 0) {</span>
+<span class="fc" id="L80">                    System.out.println(&quot;Error: Initialize the room before executing the 'D' command.&quot;);</span>
+<span class="fc" id="L81">                    break;</span>
+                }
+<span class="fc bfc" id="L83" title="All 2 branches covered.">                if (values.length &gt; 1) {</span>
+<span class="fc" id="L84">                    System.out.println(&quot;Error: The 'D' command does not accept any additional values.&quot;);</span>
+<span class="fc" id="L85">                    break;</span>
+                }
+<span class="fc" id="L87">                Pendown = true;</span>
+<span class="fc" id="L88">                System.out.println(&quot;Pen is down.&quot;);</span>
+<span class="fc" id="L89">                updateRoom();</span>
+<span class="fc" id="L90">                break;</span>
+
+            case &quot;U&quot;:
+<span class="fc bfc" id="L93" title="All 2 branches covered.">                if (Room_size == 0) {</span>
+<span class="fc" id="L94">                    System.out.println(&quot;Error: Initialize the room before executing the 'U' command.&quot;);</span>
+<span class="fc" id="L95">                    break;</span>
+                }
+<span class="fc bfc" id="L97" title="All 2 branches covered.">                if (values.length &gt; 1) {</span>
+<span class="fc" id="L98">                    System.out.println(&quot;Error: The 'U' command does not accept any additional values.&quot;);</span>
+<span class="fc" id="L99">                    break;</span>
+                }
+<span class="fc" id="L101">                Pendown = false;</span>
+<span class="fc" id="L102">                System.out.println(&quot;Pen is up.&quot;);</span>
+<span class="fc" id="L103">                updateRoom();</span>
+<span class="fc" id="L104">                break;</span>
+
+            case &quot;M&quot;:
+<span class="fc bfc" id="L107" title="All 2 branches covered.">                if (Room_size == 0) {</span>
+<span class="fc" id="L108">                    System.out.println(&quot;Error: Initialize the room before executing the 'M' command.&quot;);</span>
+<span class="fc" id="L109">                    break;</span>
+                }
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">                if (values.length &lt; 2) {</span>
+<span class="nc" id="L112">                    System.out.println(&quot;Error: Two values are required to process the 'M' command.&quot;);</span>
+<span class="nc" id="L113">                    break;</span>
+                }
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">                if (!(values[1].matches(&quot;\\d+&quot;))) {</span>
+<span class="nc" id="L116">                    System.out.println(&quot;Error: Only integer values are accepted for the 'M' command.&quot;);</span>
+<span class="nc" id="L117">                    break;</span>
+                }
+<span class="fc" id="L119">                positions = Integer.parseInt(values[1]);</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">                if (positions &lt; 1) {</span>
+<span class="nc" id="L121">                    System.out.println(&quot;Error: The value for 'M' command should be at least 1.&quot;);</span>
+<span class="nc" id="L122">                    break;</span>
+                }
+<span class="fc" id="L124">                move(positions);</span>
+<span class="fc" id="L125">                break;</span>
+
+            case &quot;L&quot;:
+<span class="fc bfc" id="L128" title="All 2 branches covered.">                if (values.length &gt; 1) {</span>
+<span class="fc" id="L129">                    System.out.println(&quot;Error: The 'L' command does not accept any additional values.&quot;);</span>
+<span class="fc" id="L130">                    break;</span>
+                }
+<span class="fc" id="L132">                Move_Left();</span>
+<span class="fc" id="L133">                break;</span>
+
+            case &quot;R&quot;:
+<span class="fc bfc" id="L136" title="All 2 branches covered.">                if (values.length &gt; 1) {</span>
+<span class="fc" id="L137">                    System.out.println(&quot;Error: The 'R' command does not accept any additional values.&quot;);</span>
+<span class="fc" id="L138">                    break;</span>
+                }
+<span class="fc" id="L140">                Move_Right();</span>
+<span class="fc" id="L141">                break;</span>
+
+            case &quot;P&quot;:
+<span class="fc bfc" id="L144" title="All 2 branches covered.">                if (values.length &gt; 1) {</span>
+<span class="fc" id="L145">                    System.out.println(&quot;Error: The 'P' command does not accept any additional values.&quot;);</span>
+<span class="fc" id="L146">                    break;</span>
+                }
+<span class="fc" id="L148">                updateRoom();</span>
+<span class="fc" id="L149">                Room_Map();</span>
+<span class="fc" id="L150">                break;</span>
+
+            case &quot;Q&quot;:
+<span class="nc bnc" id="L153" title="All 2 branches missed.">                if (values.length &gt; 1) {</span>
+<span class="nc" id="L154">                    System.out.println(&quot;Error: The 'Q' command does not accept any additional values.&quot;);</span>
+<span class="nc" id="L155">                    break;</span>
+                }
+<span class="nc" id="L157">                System.out.println(&quot;Terminating the robot.&quot;);</span>
+<span class="nc" id="L158">                System.exit(0);</span>
+<span class="nc" id="L159">                break;</span>
+
+            default:
+<span class="fc" id="L162">                System.out.println(&quot;Error: Command not supported.&quot;);</span>
+                break;
+        }
+<span class="fc" id="L165">    }</span>
+
+    public void move(int positions) {
+<span class="fc" id="L168">        updateRoom();</span>
+<span class="fc" id="L169">        int temp_X = x_Coordinate;</span>
+<span class="fc" id="L170">        int temp_Y = y_Coordinate;</span>
+
+<span class="pc bpc" id="L172" title="3 of 5 branches missed.">        switch (Direction) {</span>
+            case NORTH:
+<span class="fc" id="L174">                temp_Y = y_Coordinate + positions;</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">                if (temp_Y &gt;= Room_size) {</span>
+<span class="nc" id="L176">                    System.out.println(&quot;Error: Movement outside the room is not allowed.&quot;);</span>
+<span class="nc" id="L177">                    break;</span>
+                }
+                break;
+
+            case EAST:
+<span class="fc" id="L182">                temp_X = x_Coordinate + positions;</span>
+<span class="pc bpc" id="L183" title="1 of 2 branches missed.">                if (temp_X &gt;= Room_size) {</span>
+<span class="nc" id="L184">                    System.out.println(&quot;Error: Movement outside the room is not allowed.&quot;);</span>
+<span class="nc" id="L185">                    break;</span>
+                }
+                break;
+
+            case SOUTH:
+<span class="nc" id="L190">                temp_Y = y_Coordinate - positions;</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">                if (temp_Y &lt; 0) {</span>
+<span class="nc" id="L192">                    System.out.println(&quot;Error: Movement outside the room is not allowed.&quot;);</span>
+<span class="nc" id="L193">                    break;</span>
+                }
+                break;
+
+            case WEST:
+<span class="nc" id="L198">                temp_X = x_Coordinate - positions;</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">                if (temp_X &lt; 0) {</span>
+<span class="nc" id="L200">                    System.out.println(&quot;Error: Movement outside the room is not allowed.&quot;);</span>
+                    break;
+                }
+                break;
+        }
+
+<span class="pc bpc" id="L206" title="4 of 8 branches missed.">        if (temp_X &gt;= 0 &amp;&amp; temp_X &lt; Room_size &amp;&amp; temp_Y &gt;= 0 &amp;&amp; temp_Y &lt; Room_size) {</span>
+<span class="fc" id="L207">            int xDiff = temp_X - x_Coordinate;</span>
+<span class="fc" id="L208">            int yDiff = temp_Y - y_Coordinate;</span>
+
+<span class="pc bpc" id="L210" title="1 of 2 branches missed.">            if (Pendown) {</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">                for (int i = 0; i &lt;= positions; i++) {</span>
+<span class="fc" id="L212">                    way.add(new int[]{x_Coordinate + i * xDiff / positions, y_Coordinate + i * yDiff / positions});</span>
+                }
+<span class="fc" id="L214">                x_Coordinate = temp_X;</span>
+<span class="fc" id="L215">                y_Coordinate = temp_Y;</span>
+<span class="fc" id="L216">                System.out.println(&quot;Moved to position: &quot; + x_Coordinate + &quot;, &quot; + y_Coordinate + &quot;\n&quot;);</span>
+<span class="fc" id="L217">                way.add(new int[]{x_Coordinate, y_Coordinate});</span>
+<span class="fc" id="L218">                updateRoom();</span>
+            } else {
+<span class="nc" id="L220">                System.out.println(&quot;The robot is moving freely as the pen is up. The new coordinates are: &quot; + temp_X + &quot;, &quot; + temp_Y + &quot; (not updated in the room map)\n&quot;);</span>
+<span class="nc" id="L221">                x_Coordinate = temp_X;</span>
+<span class="nc" id="L222">                y_Coordinate = temp_Y;</span>
+            }
+        }
+<span class="fc" id="L225">    }</span>
+
+    public void Move_Right() {
+<span class="pc bpc" id="L228" title="1 of 5 branches missed.">        switch (Direction) {</span>
+            case NORTH:
+<span class="fc" id="L230">                Direction = EAST;</span>
+<span class="fc" id="L231">                break;</span>
+            case EAST:
+<span class="fc" id="L233">                Direction = SOUTH;</span>
+<span class="fc" id="L234">                break;</span>
+            case SOUTH:
+<span class="fc" id="L236">                Direction = WEST;</span>
+<span class="fc" id="L237">                break;</span>
+            case WEST:
+<span class="fc" id="L239">                Direction = NORTH;</span>
+                break;
+        }
+<span class="fc" id="L242">        System.out.println(&quot;Rotated right. The robot is currently facing: &quot; + Direction);</span>
+<span class="fc" id="L243">    }</span>
+
+    public void Move_Left() {
+<span class="pc bpc" id="L246" title="1 of 5 branches missed.">        switch (Direction) {</span>
+            case NORTH:
+<span class="fc" id="L248">                Direction = WEST;</span>
+<span class="fc" id="L249">                break;</span>
+            case WEST:
+<span class="fc" id="L251">                Direction = SOUTH;</span>
+<span class="fc" id="L252">                break;</span>
+            case SOUTH:
+<span class="fc" id="L254">                Direction = EAST;</span>
+<span class="fc" id="L255">                break;</span>
+            case EAST:
+<span class="fc" id="L257">                Direction = NORTH;</span>
+                break;
+        }
+<span class="fc" id="L260">        System.out.println(&quot;Rotated left. The robot is currently facing: &quot; + Direction);</span>
+<span class="fc" id="L261">    }</span>
+
+    public void updateRoom() {
+<span class="fc bfc" id="L264" title="All 2 branches covered.">        if (Pendown) {</span>
+<span class="fc" id="L265">            Room[x_Coordinate][y_Coordinate] = 1;</span>
+        }
+<span class="fc" id="L267">    }</span>
+
+    public void Room_Map() {
+<span class="fc" id="L270">        System.out.println();</span>
+<span class="fc bfc" id="L271" title="All 2 branches covered.">        for (int j = Room_size - 1; j &gt;= 0; j--) {</span>
+<span class="fc" id="L272">            System.out.print(&quot; &quot; + String.format(&quot;%02d&quot;, j) + &quot; &quot;);</span>
+<span class="fc bfc" id="L273" title="All 2 branches covered.">            for (int i = 0; i &lt; Room_size; i++) {</span>
+<span class="fc" id="L274">                boolean hold = false;</span>
+<span class="pc bpc" id="L275" title="1 of 2 branches missed.">                for (int[] pos : way) {</span>
+<span class="nc bnc" id="L276" title="All 4 branches missed.">                    if (i == pos[0] &amp;&amp; j == pos[1]) {</span>
+<span class="nc" id="L277">                        System.out.print(&quot; * &quot;);</span>
+<span class="nc" id="L278">                        hold = true;</span>
+<span class="nc" id="L279">                        break;</span>
+                    }
+<span class="nc" id="L281">                }</span>
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">                if (!hold) {</span>
+<span class="fc" id="L283">                    System.out.print(&quot; - &quot;);</span>
+                }
+            }
+<span class="fc" id="L286">            System.out.println();</span>
+        }
+<span class="fc" id="L288">        System.out.print(&quot;    &quot;);</span>
+<span class="fc bfc" id="L289" title="All 2 branches covered.">        for (int i = 0; i &lt; Room_size; i++) {</span>
+<span class="fc" id="L290">            System.out.print(String.format(&quot; %02d&quot;, i));</span>
+        }
+<span class="fc" id="L292">        System.out.println();</span>
+<span class="fc" id="L293">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
